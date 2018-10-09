@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>My Todos</h1>
+    <ul></ul>
+  </body>
+  <script>
+    const electron = require('electron')
+    const { ipcRenderer } = electron
+    let list = document.querySelector('ul')
+
+    ipcRenderer.on('todo:add', (e, todo) => {
+      const li = document.createElement('li')
+      const text = document.createTextNode(todo)
+
+      li.appendChild(text)
+      list.appendChild(li)
+    })
+
+    ipcRenderer.on('todo:clear', (e) => list.innerHTML = "")
+  </script>
+</html>
